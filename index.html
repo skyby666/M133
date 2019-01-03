@@ -5,7 +5,10 @@
 		<title>GIBM Stundenplan</title>
 		
 		<!-- Bootstrap CSS include -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		
+		<!-- eigenes custom CSS include -->
+		<link rel="stylesheet" href="css/customStyles.css">
 		
 		<!-- Metadaten -->
 		<meta charset="UTF-8">
@@ -19,30 +22,35 @@
 		
 			<!-- Bewertung_1.3 -->
 			<!-- Überschrift der Seite -->
-			<h1>GIBM Stundenplan</h1>
-			<h5>Stundenplan für alle Berufsgattungen und Jahrgänge and der GIBM Muttenz und GIBM Pratteln</h5>
-			<p></p>
+			<p>
+				<h1>GIBM Stundenplan</h1>
+				<h5>Stundenplan für alle Berufsgattungen und Jahrgänge and der GIBM Muttenz und GIBM Pratteln</h5>
+			</p>
 		
-			<!-- Selektionsbox - Job -->
-			<h4>Wählen Sie bitten den gewünschten Beruf aus:</h4>
-			<select name="selectJob" id="IdSelectJob">
-				<option>Beruf auswählen ...</option>
-			</select>
-		
-			<!-- Selektionsbox - Klasse -->
-			<h4>Wählen Sie bitten die gewünschte Klasse aus:</h4>
-			<select name="selectClass">
-				<option>Klasse auswählen ...</option>
-			</select>
+			<p>
+				<!-- Selektionsbox - Job -->
+				<h4>Wählen Sie bitten den gewünschten Beruf aus:</h4>
+				<select name="selectJob" id="idSelectJob">
+					<option selected="true" disabled>Beruf auswählen ...</option>
+				</select>
+			</p>
+			
+			<p>
+				<!-- Selektionsbox - Klasse -->
+				<h4 id="idTitleClass">Wählen Sie bitten die gewünschte Klasse aus:</h4>
+				<select name="selectClass" id="idSelectClass">
+					<option selected="true" disabled>Klasse auswählen ...</option>
+				</select>
+			</p>
 			
 			<!-- Tabelle - Stundenplan -->
 		
 		</div>
 		
 		<!-- Bootstrap script includes -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		
 		<!-- eigenes custom script include -->
 		<script type="text/javascript" src="js/customFunctions.js"></script>
