@@ -41,13 +41,31 @@
 				<h4 id="idTitleClass">Wählen Sie bitten die gewünschte Klasse aus:</h4>
 				<!-- Bewertung_1.4 -->
 				<select name="selectClass" id="idSelectClass">
-					<option selected="true" disabled>Klasse auswählen ...</option>
 				</select>
 			</p>
 			
 			<!-- Tabelle - Stundenplan -->
+			
+			<h4 id="idTableTitle"></h4>
+			<table class="table" id="idTable">
+                <thead id="idTableHead">
+                    <tr>
+                        <th>Datum</th>
+                        <th>Tag</th>
+                        <th>Von</th>
+                        <th>Bis</th>
+                        <th>Fach</th>
+                        <th>Lehrperson</th>
+                        <th>Raum</th>
+                    </tr>
+                </thead>
+                <tbody id="idTableBody">
+                </tbody>
+            </table>
 		
 		</div>
+		
+		<script src="https://momentjs.com/downloads/moment.js"></script>
 		
 		<!-- Bootstrap script includes -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
