@@ -1,4 +1,20 @@
-select
+h1
 {
-	width: 50%;
+	margin-top: 10px;
+}
+
+h5
+{
+	margin-top: 10px;
+	margin-bottom: 40px;
+}
+
+h4
+{
+	margin-top: 20px;
+}
+
+#idWeekButtons
+{
+	margin-top: 30px;
 }

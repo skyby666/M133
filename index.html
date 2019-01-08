@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
+
 	<head>
+	
 		<!-- Bewertung_1.2 -->
 		<title>GIBM Stundenplan</title>
 		
@@ -16,37 +18,53 @@
 		<meta name="keywords" content="GIBM, Stundenplan, Muttenz, Pratteln,">
 		<meta name="author" content="Dario Keller">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
 	</head>
+	
 	<body>
+	
 		<div class="container">
 		
 			<!-- Bewertung_1.3 -->
 			<!-- Überschrift der Seite -->
-			<p>
-				<h1>GIBM Stundenplan</h1>
-				<h5>Stundenplan für alle Berufsgattungen und Jahrgänge and der GIBM Muttenz und GIBM Pratteln</h5>
-			</p>
-		
-			<p>
-				<!-- Selektionsbox - Job -->
-				<h4 id="idTitleJob">Wählen Sie bitten den gewünschten Beruf aus:</h4>
-				<!-- Bewertung_1.4 -->
-				<select name="selectJob" id="idSelectJob">
-					<option selected="true" disabled>Beruf auswählen ...</option>
-				</select>
-			</p>
+			<h1>GIBM Stundenplan</h1>
+			<h5>Stundenplan für alle Berufsgattungen und Jahrgänge and der GIBM Muttenz und GIBM Pratteln</h5>
 			
-			<p>
-				<!-- Selektionsbox - Klasse -->
-				<h4 id="idTitleClass">Wählen Sie bitten die gewünschte Klasse aus:</h4>
-				<!-- Bewertung_1.4 -->
-				<select name="selectClass" id="idSelectClass">
-				</select>
-			</p>
+			<!-- Selektionsbox - Job -->
+			<h4 id="idTitleJob">Wählen Sie bitten den gewünschten Beruf aus:</h4>
+			<!-- Bewertung_1.4 -->
+			<!-- Bewertung_3.1 -->
+			<!-- Bewertung_4.1 -->
+			<select class="form-control" name="selectJob" id="idSelectJob">
+				<option selected disabled>Beruf auswählen ...</option>
+			</select>
 			
+			<!-- Selektionsbox - Klasse -->
+			<h4 id="idTitleClass">Wählen Sie bitten die gewünschte Klasse aus:</h4>
+			<!-- Bewertung_1.4 -->
+			<!-- Bewertung_3.2 -->
+			<select class="form-control" id="idSelectClass">
+			</select>
+			
+			<!-- Woche vor, heute und zurück - Stundenplan -->
+			<div class="container" id="idWeekButtons">
+				<div class="row row-centered">
+					<div class="col-sm col-centered">
+						<button type="button" class="btn btn-primary btn-lg">Eine Woche zurück</button>
+					</div>
+					<div class="col-sm col-centered">
+						<button type="button" class="btn btn-primary btn-lg">Aktuelle Woche</button>
+					</div>
+					<div class="col-sm col-centered">
+						<button type="button" class="btn btn-primary btn-lg">Eine Woche vor</button>
+					</div>
+				</div>
+			</div>
+
 			<!-- Tabelle - Stundenplan -->
-			
 			<h4 id="idTableTitle"></h4>
+			<!-- Bewertung_3.4 -->
+			<!-- Bewertung_6.3 -->
 			<table class="table" id="idTable">
                 <thead id="idTableHead">
                     <tr>
@@ -73,6 +91,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		
 		<!-- eigenes custom script include -->
-		<script type="text/javascript" src="js/customFunctions.js"></script>
+		<script src="js/customFunctions.js"></script>
+		
 	</body>
+	
 </html>

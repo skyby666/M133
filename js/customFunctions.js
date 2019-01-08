@@ -33,18 +33,36 @@ $(function(){
 	$('#idTitleClass').hide();
 	$('#idSelectClass').hide();
 	
+	// Verstecke zu Beginn die Buttons zum Navigieren der Wochen
+//	$('#idWeekButtons').hide();
+	
+	// Bewertung_6.6
 	// Setze den Titel des Stundenplans, inklusive Wochen- und Jahresangabe.
 	$('#idTableTitle').append('Stundenplan der ' + selectedWeek + '. Woche des Schuljahres ' + selectedYear);
 	
+	// Bewertung_2.1
 	// Befülle das Drop-Down für die Berufsauswahl von der JSON-Schnittstelle.
 	$.getJSON(JsonUrlJobs, function (data){
+		
+		// Füge die Optionen hinzu PRO zurückerhaltenem Datenpaar
 		$.each(data, function (key, entry){
+			
+			// Hinzufügen einer "option" zu meinem "select"-Element
 			$('#idSelectJob').append($('<option></option>').attr('value', entry.beruf_id).text(entry.beruf_name));
+			
 		});
+		
 	});
 	
+	// Bewertung_4.2
+	// Bewertung_5.1
 	// Füge der Berufsauswahl eine "onchange"-Funktion hinzu.
 	$('#idSelectJob').change(function(){
+		
+		// Bewertung_4.3
+		// Beim Wechsel den Stunenplan und seinen Titel ausblenden, wenn dies nicht schon so ist.
+		$('#idTableTitle').hide();
+		$('#idTable').hide();
 		
 		// Leere zunächst die bestehenden Optionen des Select-Elements.
 		$('#idSelectClass').empty();
@@ -52,20 +70,28 @@ $(function(){
 		// Füge zuerst die Standardoption hinzu, die aber nicht mehr ausgewählt werden könne soll.
 		$('#idSelectClass').append('<option selected="true" disabled>Klasse auswählen ...</option>');
 		
+		// Bewertung_5.2
 		// Befülle das Drop-Down für die Klassenauswahl von der JSON-Schnittstelle.
 		$.getJSON(JsonUrlClasses + $('#idSelectJob').val(), function (data){
+			
+			// Füge die Optionen hinzu PRO zurückerhaltenem Datenpaar
 			$.each(data, function (key, entry){
+				
+				// Hinzufügen einer "option" zu meinem "select"-Element
 				$('#idSelectClass').append($('<option></option>').attr('value', entry.klasse_id).text(entry.klasse_longname));
+				
 			});
+			
 		});
 		
 		// Bewertung_C.1
-		// mache nach Befüllung die Klassenauswahl-Select-Box wieder sichtbar
+		// mache nach Befüllung die Klassenauswahl-Select-Box und deren Titel wieder sichtbar
 		$('#idTitleClass').fadeIn();
 		$('#idSelectClass').fadeIn();
 		
 	});
 	
+	// Bewertung_5.3
 	// Füge der Berufsauswahl eine "onchange"-Funktion hinzu
 	$('#idSelectClass').change(function(){
 		
@@ -77,35 +103,44 @@ $(function(){
 			if (xhr.status == 200) {
 				$('#idTableTitle').fadeOut();
 				$('#idTable').fadeOut();
-				console.log("Tafel konnte erfolgreich geladen werden");
 				var items = [];
 				if (data.length == 0) {
-					$('#idTableBody').append("<tr><td colspan='7'> In dieser Woche wurden keine Daten gefunden. </br>Eventuell findet in dieser woche kein Unterricht statt, oder es wurden für diesen Zeitraum noch keine Daten eingegeben. </td></tr>");
+					
+					// Bewertung_A.5
+					$('#idTableBody').append("<tr><td colspan='7'> In dieser Woche wurden keine Daten gefunden. </br>Eventuell findet in dieser Woche kein Unterricht statt, oder es wurden für diesen Zeitraum noch keine Daten eingegeben. </td></tr>");
+					
 				}
+				
 				else {
+					
 					$.each(data, function(key, val) {
-						// 6.1 Datum, Wochentag, von, bis, Lehrer, Fach, Zimmer vorhanden
-						// 6.6 Jahr und Wochennummer wird ausgegeben
+						
+						// Bewertung_6.1
+						// Bewertung_6.4
+						// Bewertung_6.5
 						$('#idTableBody').append("<tr><td>" + moment(val.tafel_datum).format("DD-MM-YYYY") + "</td>" + "<td>" + weekday[val.tafel_wochentag] + "</td>" + "<td>" + moment(val.tafel_von, "HH:mm:ss").format("HH:mm") + "</td>" + "<td>" + moment(val.tafel_bis, "HH:mm:ss").format("HH:mm") + "</td>" + "<td>" + val.tafel_longfach + "</td>" + "<td>" + val.tafel_lehrer + "</td>" + "<td>" + val.tafel_raum + "</td>");
+						
 					});
+					
 				}
+				
 				$('#idTableTitle').fadeIn();
 				$('#idTable').fadeIn();
+				$('#idWeekButtons').fadeIn();
+				
 			}
-			// Falls nicht ok, Error Meldungen in die Konsole
-			// 2.2 Fehlermeldung, wenn AJAX-Request nicht funktioniert.
+			
+			// Bewertung_2.2
 			else {
+				
 				alert(xhr.status);
 				alert(xhr.response);
 				alert(xhr.responseText)
 				alert(xhr.statusText);
 			}
+			
 		});
 		
-		// Bewertung_C.1
-		// mache nach Befüllung die Klassenauswahl-Select-Box wieder sichtbar
-		$('#idTitleClass').fadeIn();
-		$('#idSelectClass').fadeIn();
-		
 	});
+	
 });
