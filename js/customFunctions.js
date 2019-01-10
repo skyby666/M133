@@ -95,32 +95,45 @@ $(function(){
 	// Bewertung_5.3
 	// Füge der Berufsauswahl eine "onchange"-Funktion hinzu
 	$('#idSelectClass').change(function(){
+		
+		// Verstecke den Titel des Stundenplans, bis er neu generiert wurde.
 		$('#idTableTitle').fadeOut();
+		
+		// Verstecke die Stundenplantabell und führe anschliessend die Funktion aus, um sie neu zu befüllen und dann wieder anzuzeigen.
 		$('#idTable').fadeOut(function(){
+			
+			// Funktion zum befüllen der Tabelle mit JSON-Daten
 			fillTable();
 		});
 		
 		
 	});
 	
+	// Funktion zum befüllen der Tabelle mit JSON-Daten
 	function fillTable(){
-			//leere zuerst die bestehenden Optionen des Select-Elements
+		
+		//leere zuerst den bestehenden Inhalt der Stundenplantabelle
 		$('#idTableBody').html("");
 		
+		// Befülle die Tabelle mit den Stundenplandaten von der JSON-Schnittstelle (anhand des ausgewählten Berufs und der ausgewählten Klasse)
 		$.getJSON(JsonUrlTable + $('#idSelectClass').val() + "&woche=" + selectedWeek + "-" + selectedYear, function(data, status, xhr) {
-			//HTTP Status überprüfen (200 = OK)
+			
+			// Prüfe den HTTP Status (wenn 200 zurückgegeben wird ist alles gut)
 			if (xhr.status == 200) {
 				
-				var items = [];
+				// Wenn keine Daten zurückgeliefert werden, setze eine sinnvolle Meldung stattdessen
 				if (data.length == 0) {
 					
 					// Bewertung_A.5
+					// Sinnvolle Meldung bei "keinen Daten oder Ferien"
 					$('#idTableBody').append("<tr><td colspan='7'> In dieser Woche wurden keine Daten gefunden. </br>Eventuell findet in dieser Woche kein Unterricht statt, oder es wurden für diesen Zeitraum noch keine Daten eingegeben. </td></tr>");
 					
 				}
 				
+				// Falls Daten zurückgeliefert werden, befülle die Tabelle mit diesen
 				else {
 					
+					// Ein Loop über die zurückgelieferten Datensätze
 					$.each(data, function(key, val) {
 						
 						// Bewertung_6.1
@@ -132,6 +145,7 @@ $(function(){
 					
 				}
 				
+				// Zeige die Tabelle, die dazügehörigen Buttons und den Titel wieder ein
 				$('#idTableTitle').fadeIn();
 				$('#idTable').fadeIn();
 				$('#idWeekButtons').fadeIn();
@@ -139,8 +153,8 @@ $(function(){
 			}
 			
 			// Bewertung_2.2
+			// Falls ein anderer Status zurückgeliefert wird, gib eine entsprechende Fehlermeldung aus
 			else {
-				
 				alert(xhr.status);
 				alert(xhr.response);
 				alert(xhr.responseText)
@@ -150,44 +164,91 @@ $(function(){
 		});
 	}
 	
+	// Bewertung_A.3
+	// Füge dem "Woche zurück"-Button eine Logik hinzu, wenn er geklickt wird.
 	$('#idButtonBack').click(function(){
+		
+		// Stelle das aktuelle Datum eine Woche zurück
 		date.subtract(1, 'week');
 		
+		// Verstecke den Titel des Stundenplans, bis er neu generiert wurde.
 		$('#idTableTitle').fadeOut();
+		
+		// Verstecke die Stundenplantabell und führe anschliessend die Funktion aus, um sie neu zu befüllen und dann wieder anzuzeigen.
 		$('#idTable').fadeOut(function(){
+			
+			// Rufe die Funktion auf, die das Aktuelle Jahr und die aktuelle Woche aktualisiert.
 			updateSelectedWeekYear();
+			
+			// Funktion zum befüllen der Tabelle mit JSON-Daten
 			fillTable();
+			
 		});	
+		
 	});
 	
+	// Füge dem "Aktuelle Woche"-Button eine Logik hinzu, wenn er geklickt wird.
 	$('#idButtonHome').click(function(){
+		
+		// Setze das Datum wieder auf das aktuelle Datum zurück
 		date = moment();
 		
+		// Verstecke den Titel des Stundenplans, bis er neu generiert wurde.
 		$('#idTableTitle').fadeOut();
+		
+		// Verstecke die Stundenplantabell und führe anschliessend die Funktion aus, um sie neu zu befüllen und dann wieder anzuzeigen.
 		$('#idTable').fadeOut(function(){
+			
+			// Rufe die Funktion auf, die das Aktuelle Jahr und die aktuelle Woche aktualisiert.
 			updateSelectedWeekYear();
+			
+			// Funktion zum befüllen der Tabelle mit JSON-Daten
 			fillTable();
 		});
 	});
 	
+	// Bewertung_A.2
+	// Füge dem "Woche vorwärts"-Button eine Logik hinzu, wenn er geklickt wird.
 	$('#idButtonForward').click(function(){
+		
+		// Setze das aktuelle Datum eine Woche in die Zukunft
 		date.add(1, 'week');
 		
+		// Verstecke den Titel des Stundenplans, bis er neu generiert wurde.
 		$('#idTableTitle').fadeOut();
+		
+		// Verstecke die Stundenplantabell und führe anschliessend die Funktion aus, um sie neu zu befüllen und dann wieder anzuzeigen.
 		$('#idTable').fadeOut(function(){
+			
+			// Rufe die Funktion auf, die das Aktuelle Jahr und die aktuelle Woche aktualisiert.
 			updateSelectedWeekYear();
+			
+			// Funktion zum befüllen der Tabelle mit JSON-Daten
 			fillTable();
 		});
 	});
 		
+	// Funktion um das aktuelle Jahr, und die aktuelle Woche anzupassen (falls eine Änderund stattgefunden hat)
 	function updateSelectedWeekYear(){
+		
+		// Aktuelle Woche in die Variable schreiben
 		selectedWeek = date.week();
+		
+		// Aktuelles Jahr in die Variable schreiben
 		selectedYear = date.year();
+		
+		// Funktion ausführen, um den Titel des Stundenplans anzupassen
 		updateDateTitle();
 	}
 	
+	// Bewertung_A.4
+	// Funktion um den Titel des Stundenplans anzupassen (wenn eine Wochenänderung stattgefunden hat)
 	function updateDateTitle(){
+		
+		// Mach den Titel zuerst leer
 		$('#idTableTitle').empty();
+		
+		// Fülle ihn dann mit der aktuellen Woche und dem aktuellen Jahr
 		$('#idTableTitle').append('Stundenplan der ' + selectedWeek + '. Woche des Schuljahres ' + selectedYear);
 	}
 	
