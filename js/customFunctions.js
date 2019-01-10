@@ -34,11 +34,11 @@ $(function(){
 	$('#idSelectClass').hide();
 	
 	// Verstecke zu Beginn die Buttons zum Navigieren der Wochen
-//	$('#idWeekButtons').hide();
+	$('#idWeekButtons').hide();
 	
 	// Bewertung_6.6
 	// Setze den Titel des Stundenplans, inklusive Wochen- und Jahresangabe.
-	$('#idTableTitle').append('Stundenplan der ' + selectedWeek + '. Woche des Schuljahres ' + selectedYear);
+	updateDateTitle();
 	
 	// Bewertung_2.1
 	// Befülle das Drop-Down für die Berufsauswahl von der JSON-Schnittstelle.
@@ -63,6 +63,7 @@ $(function(){
 		// Beim Wechsel den Stunenplan und seinen Titel ausblenden, wenn dies nicht schon so ist.
 		$('#idTableTitle').hide();
 		$('#idTable').hide();
+		$('#idWeekButtons').hide();
 		
 		// Leere zunächst die bestehenden Optionen des Select-Elements.
 		$('#idSelectClass').empty();
@@ -94,15 +95,22 @@ $(function(){
 	// Bewertung_5.3
 	// Füge der Berufsauswahl eine "onchange"-Funktion hinzu
 	$('#idSelectClass').change(function(){
+		$('#idTableTitle').fadeOut();
+		$('#idTable').fadeOut(function(){
+			fillTable();
+		});
 		
-		//leere zuerst die bestehenden Optionen des Select-Elements
+		
+	});
+	
+	function fillTable(){
+			//leere zuerst die bestehenden Optionen des Select-Elements
 		$('#idTableBody').html("");
 		
 		$.getJSON(JsonUrlTable + $('#idSelectClass').val() + "&woche=" + selectedWeek + "-" + selectedYear, function(data, status, xhr) {
 			//HTTP Status überprüfen (200 = OK)
 			if (xhr.status == 200) {
-				$('#idTableTitle').fadeOut();
-				$('#idTable').fadeOut();
+				
 				var items = [];
 				if (data.length == 0) {
 					
@@ -140,7 +148,47 @@ $(function(){
 			}
 			
 		});
+	}
+	
+	$('#idButtonBack').click(function(){
+		date.subtract(1, 'week');
 		
+		$('#idTableTitle').fadeOut();
+		$('#idTable').fadeOut(function(){
+			updateSelectedWeekYear();
+			fillTable();
+		});	
 	});
+	
+	$('#idButtonHome').click(function(){
+		date = moment();
+		
+		$('#idTableTitle').fadeOut();
+		$('#idTable').fadeOut(function(){
+			updateSelectedWeekYear();
+			fillTable();
+		});
+	});
+	
+	$('#idButtonForward').click(function(){
+		date.add(1, 'week');
+		
+		$('#idTableTitle').fadeOut();
+		$('#idTable').fadeOut(function(){
+			updateSelectedWeekYear();
+			fillTable();
+		});
+	});
+		
+	function updateSelectedWeekYear(){
+		selectedWeek = date.week();
+		selectedYear = date.year();
+		updateDateTitle();
+	}
+	
+	function updateDateTitle(){
+		$('#idTableTitle').empty();
+		$('#idTableTitle').append('Stundenplan der ' + selectedWeek + '. Woche des Schuljahres ' + selectedYear);
+	}
 	
 });
